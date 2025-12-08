@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<!-- 文章详情页模板 -->
+<article>
+  <!-- 显示文章标题 -->
+  <h1>{{ page.title }}</h1>
+  <!-- 显示文章发布时间 -->
+  <p>发布时间：{{ page.date | date: "%Y-%m-%d" }}</p>
+  
+  <!-- 显示文章内容 -->
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <!-- 阅读统计功能（不蒜子） -->
+  <div style="margin-top: 20px; color: #666;">
+    本文阅读量：<span id="busuanzi_value_page_pv"></span> 次
+  </div>
+</article>
+
+<!-- 引入不蒜子统计脚本（仅文章页加载） -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

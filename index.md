@@ -9,12 +9,11 @@ title: 赵一格
 .container {
   display: flex;
   gap: 20px;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   width: 100%;        /* 小屏幕占满，大屏幕最多1200px */
   box-sizing: border-box; /* 防止padding撑大容器导致遮挡 */
-  overflow: hidden;   /* 防止子元素溢出遮挡 */
+     /*overflow: hidden; 防止子元素溢出遮挡 */
 }
 
 /* 左侧四级目录栏 */
@@ -25,19 +24,21 @@ title: 赵一格
   padding: 15px;
   border-radius: 8px;
   border: 1px solid #eee;
-  max-height: 80vh;
+  max-height: 180vh;
   overflow-y: auto;
   box-sizing: border-box; /* 关键：padding不撑大宽度 */
 }
 
 /* 右侧个人简介区 */
 .profile {
-  width: 72%;
+  flex: 1;
   background: #f0f8fb;
   padding: 30px;
+  min-width: 300px; /* 小屏幕最小宽度，不挤 */
   border-radius: 8px;
   border: 1px solid #eee;
   box-sizing: border-box; /* 核心：避免padding导致宽度超了遮挡 */
+  overflow: hidden; /* 防止内容溢出出现白色 */
 }
 
 /* 目录层级样式：四级缩进 + 折叠控制 */

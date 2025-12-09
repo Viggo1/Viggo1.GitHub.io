@@ -12,6 +12,9 @@ title: 赵一格
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;        /* 小屏幕占满，大屏幕最多1200px */
+  box-sizing: border-box; /* 防止padding撑大容器导致遮挡 */
+  overflow: hidden;   /* 防止子元素溢出遮挡 */
 }
 
 /* 左侧四级目录栏 */
@@ -24,6 +27,7 @@ title: 赵一格
   border: 1px solid #eee;
   max-height: 80vh;
   overflow-y: auto;
+  box-sizing: border-box; /* 关键：padding不撑大宽度 */
 }
 
 /* 右侧个人简介区 */
@@ -33,6 +37,7 @@ title: 赵一格
   padding: 30px;
   border-radius: 8px;
   border: 1px solid #eee;
+  box-sizing: border-box; /* 核心：避免padding导致宽度超了遮挡 */
 }
 
 /* 目录层级样式：四级缩进 + 折叠控制 */
@@ -377,7 +382,8 @@ document.querySelectorAll('.open').forEach(el => {
   opacity: 0; /* 默认透明 */
   visibility: hidden; /* 默认隐藏（不占空间） */
   transition: all 0.2s ease; /* 悬浮时平滑显示 */
-  z-index: 999; /* 提示框置顶，避免被遮挡 */
+  z-index: 9999; /* 提至最高层级，不会被任何元素遮挡 */
+  pointer-events: none; /* 提示框不影响点击下方内容 */
 }
 
 /* 鼠标悬浮时显示提示 */

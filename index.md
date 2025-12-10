@@ -123,7 +123,10 @@ title: Viggo
   <!-- 左侧：四级可折叠目录 -->
   <div class="sidebar">
     <h3 style="margin-top: 0; color: #2c3e50;">📚 文章目录</h3>
-
+    <!-- 调试代码（可选，验证后可删除） -->
+  <p style="color: red; font-size: 12px;">
+    一级分类数：{{ first_level.size }} | 第一篇文章：{{ site.posts.first.title | default: "无" }}
+  </p>
     {% comment %} 第一步：按一级分类分组 {% endcomment %}
     {% assign first_level = site.posts | group_by: "categories[0]" %}
     {% for first_cat in first_level %}

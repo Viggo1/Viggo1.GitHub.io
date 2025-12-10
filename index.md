@@ -242,58 +242,54 @@ title: Viggo
 </div>
 
 
-<!-- 折叠/展开交互 JS -->
+// 折叠/展开交互 JS（修复初始化 bug）
 <script>
+// 通用切换函数（复用逻辑）
+function toggleCategory(item) {
+  const targetId = item.getAttribute('data-target');
+  const targetEl = document.getElementById(targetId);
+  if (!targetEl) return; // 防止找不到元素报错
+  // 切换折叠/展开状态 + 切换箭头
+  if (targetEl.classList.contains('closed')) {
+    targetEl.classList.replace('closed', 'open');
+    item.innerHTML = item.innerHTML.replace('▶', '▼');
+  } else {
+    targetEl.classList.replace('open', 'closed');
+    item.innerHTML = item.innerHTML.replace('▼', '▶');
+  }
+}
+
 // 一级分类点击事件
 document.querySelectorAll('.level-1').forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    // 切换折叠/展开状态 + 切换箭头
-    if (targetEl.classList.contains('closed')) {
-      targetEl.classList.replace('closed', 'open');
-      item.innerHTML = item.innerHTML.replace('▶', '▼');
-    } else {
-      targetEl.classList.replace('open', 'closed');
-      item.innerHTML = item.innerHTML.replace('▼', '▶');
-    }
-  });
+  item.addEventListener('click', () => toggleCategory(item));
+  // 初始化：默认open的分类，箭头改为▼
+  const targetId = item.getAttribute('data-target');
+  const targetEl = document.getElementById(targetId);
+  if (targetEl && targetEl.classList.contains('open')) {
+    item.innerHTML = item.innerHTML.replace('▶', '▼');
+  }
 });
 
 // 二级分类点击事件
 document.querySelectorAll('.level-2').forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    if (targetEl.classList.contains('closed')) {
-      targetEl.classList.replace('closed', 'open');
-      item.innerHTML = item.innerHTML.replace('▶', '▼');
-    } else {
-      targetEl.classList.replace('open', 'closed');
-      item.innerHTML = item.innerHTML.replace('▼', '▶');
-    }
-  });
+  item.addEventListener('click', () => toggleCategory(item));
+  // 初始化：默认open的分类，箭头改为▼
+  const targetId = item.getAttribute('data-target');
+  const targetEl = document.getElementById(targetId);
+  if (targetEl && targetEl.classList.contains('open')) {
+    item.innerHTML = item.innerHTML.replace('▶', '▼');
+  }
 });
 
 // 三级分类点击事件
 document.querySelectorAll('.level-3').forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    if (targetEl.classList.contains('closed')) {
-      targetEl.classList.replace('closed', 'open');
-      item.innerHTML = item.innerHTML.replace('▶', '▼');
-    } else {
-      targetEl.classList.replace('open', 'closed');
-      item.innerHTML = item.innerHTML.replace('▼', '▶');
-    }
-  });
-});
-
-// 初始化：将默认折叠的分类箭头改为 ▶，默认打开的改为 ▼
-document.querySelectorAll('.open').forEach(el => {
-  const trigger = document.querySelector(`[data-target="${el.id}"]`);
-  if (trigger) trigger.innerHTML = trigger.innerHTML.replace('▶', '▼');
+  item.addEventListener('click', () => toggleCategory(item));
+  // 初始化：默认open的分类，箭头改为▼
+  const targetId = item.getAttribute('data-target');
+  const targetEl = document.getElementById(targetId);
+  if (targetEl && targetEl.classList.contains('open')) {
+    item.innerHTML = item.innerHTML.replace('▶', '▼');
+  }
 });
 </script>
 

@@ -1,9 +1,9 @@
 ---
 layout: post                  
-title: "ReAct范式：让AI像人类一样[边想边做]"  
+title: "ReAct范式：让AI像人类一样边想边做"  
 date: 2025-11-10 15:30:00+08:00  
-categories: ["AI", "LLM", "Agent", "ReAct"]  # 对应四级目录，按需填写（最少1级）
-tags: [Agent, ReAct, LLM]  # 细化主题，方便搜索（3-5个）
+categories: ["AI","LLM","Agent","ReAct"]  # 对应四级目录，按需填写（最少1级）
+tags: [Agent,ReAct,LLM]  # 细化主题，方便搜索（3-5个）
 # cover: /assets/images/covers/文章封面图.jpg  可选：文章封面图（放在assets对应文件夹）
 ---
 

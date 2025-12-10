@@ -119,7 +119,27 @@ title: Viggo
   <p style="color: red; font-size: 12px;">
     一级分类数：{{ first_level.size }} | 第一篇文章：{{ site.posts.first.title | default: "无" }}
   </p>
-    {% comment %} 第一步：按一级分类分组 {% endcomment %}
+     <!-- 可选：分类版（简化判断，去掉空值过滤） -->
+  <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
+    <h4 style="color: #000 !important;">按分类</h4>
+    {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
+    {% for cat in all_cats %}
+      {% if cat != "" %}
+        <h5 style="color: #000 !important; margin: 5px 0 !important;">{{ cat }}</h5>
+        <ul style="margin: 0 0 10px 20px !important; padding: 0 !important; color: #000 !important;">
+          {% for post in site.posts %}
+            {% if post.categories contains cat %}
+              <li style="margin: 3px 0 !important;">
+                <a href="{{ post.url }}" style="color: #007bff !important;">{{ post.title }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+    <!-- {% comment %} 第一步：按一级分类分组 {% endcomment %}
     {% assign first_level = site.posts | group_by: "categories[0]" %}
     {% for first_cat in first_level %}
       {% if first_cat.name != "" %}
@@ -207,7 +227,7 @@ title: Viggo
         </div>
       {% endif %}
     {% endfor %}
-  </div>
+  </div> -->
 
 <div class="profile">
     <h2 style="color: #2c3e50; margin-top: 0;">👋 关于我</h2>

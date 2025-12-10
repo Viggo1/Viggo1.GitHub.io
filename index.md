@@ -17,8 +17,9 @@ title: Viggo
 }
 
 /* 左侧四级目录栏 */
-.sidebar {
-  width: 300px;
+.custom-sidebar {
+  all: unset !important; /* 清空主题的所有默认样式 */
+  width: 40%;
   background: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
@@ -37,7 +38,7 @@ title: Viggo
   flex: 1;
   background: #f0f8fb;
   padding: 30px;
-  min-width: 300px; /* 小屏幕最小宽度，不挤 */
+  width: 60%;
   border-radius: 8px;
   border: 1px solid #eee;
   box-sizing: border-box; /* 核心：避免padding导致宽度超了遮挡 */
@@ -45,7 +46,7 @@ title: Viggo
 }
 
 /* 一级分类 */
-.level-1 {
+#custom-sidebar.level-1 {
   margin: 8px 0;
   font-size: 1.1em;
   font-weight: bold;
@@ -53,48 +54,48 @@ title: Viggo
   color: #2c3e50 !important; /* 强制黑色，避免和背景融合 */
 }
 /* 二级分类 */
-.level-2 {
+#custom-sidebar.level-2 {
   margin: 6px 0 6px 10px; /* 缩进从15px→10px */
   font-size: 1em;
   cursor: pointer;
   color: #34495e !important;
 }
 /* 三级分类 */
-.level-3 {
+#custom-sidebar.level-3 {
   margin: 4px 0 4px 20px; /* 缩进从30px→20px */
   font-size: 0.95em;
   cursor: pointer;
   color: #7f8c8d !important;
 }
 /* 四级分类 */
-.level-4 {
+#custom-sidebar.level-4 {
   margin: 2px 0 2px 30px; /* 缩进从45px→30px */
   font-size: 0.9em;
   color: #95a5a6 !important;
 }
 /* 文章列表：彻底简化缩进，确保在容器内 */
-.post-list {
+#custom-sidebar.post-list {
   margin: 2px 0 2px 35px !important; /* 缩进从60px→35px，强制生效 */
   list-style: disc !important; /* 强制显示列表符号，确认存在 */
   padding: 0 !important;
   font-size: 0.85em;
   color: #3498db !important; /* 强制蓝色，醒目 */
 }
-.post-list li {
+#custom-sidebar.post-list li {
   margin: 3px 0 !important;
   padding-left: 5px !important;
   border-left: 2px solid #ddd;
 }
-.post-list a {
+#custom-sidebar.post-list a {
   color: #3498db !important; /* 强制蓝色链接 */
   text-decoration: underline !important; /* 强制下划线，确认是链接 */
 }
 
 /* 折叠/展开控制类：默认折叠（closed）/ 打开（open） */
-.closed {
+#custom-sidebar.closed {
   display: none;
 }
-.open {
+#custom-sidebar.open {
   display: block;
 }
 
@@ -103,7 +104,7 @@ title: Viggo
   .container {
     flex-direction: column;
   }
-  .sidebar, .profile {
+  .custom-sidebar, .profile {
     width: 100%;
     min-width: unset;
   }
@@ -113,13 +114,13 @@ title: Viggo
 <!-- 主体布局：左侧目录 + 右侧简介 -->
 <div class="container">
   <!-- 左侧：四级可折叠目录 -->
-  <div class="sidebar">
+  <div class="custom-sidebar">
     <h3 style="margin-top: 0; color: #2c3e50;">📚 文章目录</h3>
     <!-- 调试代码（可选，验证后可删除） -->
   <p style="color: red; font-size: 12px;">
     一级分类数：{{ first_level.size }} | 第一篇文章：{{ site.posts.first.title | default: "无" }}
   </p>
-     <!-- 可选：分类版（简化判断，去掉空值过滤） -->
+     <!-- 可选：分类版（简化判断，去掉空值过滤） 
   <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
     <h4 style="color: #000 !important;">按分类</h4>
     {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
@@ -138,8 +139,8 @@ title: Viggo
       {% endif %}
     {% endfor %}
   </div>
-</div>
-    <!-- {% comment %} 第一步：按一级分类分组 {% endcomment %}
+</div>-->
+    {% comment %} 第一步：按一级分类分组 {% endcomment %}
     {% assign first_level = site.posts | group_by: "categories[0]" %}
     {% for first_cat in first_level %}
       {% if first_cat.name != "" %}
@@ -227,7 +228,7 @@ title: Viggo
         </div>
       {% endif %}
     {% endfor %}
-  </div> -->
+  </div>
 
 <div class="profile">
     <h2 style="color: #2c3e50; margin-top: 0;">👋 关于我</h2>

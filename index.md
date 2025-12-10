@@ -233,10 +233,9 @@ title: Viggo
       <span class="copyable-text" data-copy="zhaoyige1@163.com">zhaoyige1@163.com</span></a></p>
       <p>微信：<span class="copyable-text" data-copy="_iacgnaixihcub">_iacgnaixihcub</span></p>
       <p>GitHub：<a href="https://github.com/viggo1" target="_blank" style="color: #3498db;">https://github.com/viggo1</a></p>
-
-<!-- <h3 style="color: #2980b9;">📊 博客数据</h3> -->
-<!-- <p>总文章数：<span style="font-weight: bold; color: #e74c3c;">{{ site.posts.size }}</span> 篇</p> -->
-<!-- <p>最后更新：<span style="color: #7f8c8d;">{{ site.posts.first.date | date: "%Y-%m-%d" }}</span></p>-->
+      <h3 style="color: #2980b9;">📊 博客数据</h3>
+      <p>总文章数：<span style="font-weight: bold; color: #e74c3c;">{{ site.posts.size }}</span> 篇</p>
+      <p>最后更新：<span style="color: #7f8c8d;">{{ site.posts.first.date | date: "%Y-%m-%d" }}</span></p>
       <p>个人信条：Stay hungry, Stay foolish —— 永远对未知保持好奇，用技术创造价值</p>
     </div>
   </div>

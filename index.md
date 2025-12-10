@@ -27,6 +27,13 @@ title: Viggo
   max-height: 180vh;
   overflow-y: auto;
   box-sizing: border-box; /* 关键：padding不撑大宽度 */
+  visibility: visible !important; /* 强制可见 */
+  opacity: 1 !important; /* 强制不透明 */
+  color: #2c3e50 !important; /* 强制文字颜色（避免和背景一致） */
+}
+#level-1-1, #level-2-1-1, #level-3-1-1-1 {
+  display: block !important;
+  height: auto !important;
 }
 
 /* 右侧个人简介区 */

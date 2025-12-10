@@ -135,7 +135,7 @@ title: Viggo
               <div class="level-2" data-target="level-2-{{ forloop.parentloop.index }}-{{ forloop.index }}">
                 ▶ {{ second_cat.name }} （{{ second_cat.items.size }}篇）
               </div>
-              <div id="level-2-{{ forloop.parentloop.index }}-{{ forloop.index }}" class="closed"> <!-- 二级默认状态 -->
+              <div id="level-2-{{ forloop.parentloop.index }}-{{ forloop.index }}" class="open"> <!-- 二级默认状态 -->
 
                 {% comment %} 第三步：按三级分类分组 {% endcomment %}
                 {% assign third_level = second_cat.items | group_by: "categories[2]" %}
@@ -145,7 +145,7 @@ title: Viggo
                     <div class="level-3" data-target="level-3-{{ forloop.parentloop.parentloop.index }}-{{ forloop.parentloop.index }}-{{ forloop.index }}">
                       ▶ {{ third_cat.name }} （{{ third_cat.items.size }}篇）
                     </div>
-                    <div id="level-3-{{ forloop.parentloop.parentloop.index }}-{{ forloop.parentloop.index }}-{{ forloop.index }}" class="closed"> <!-- 三级默认状态 -->
+                    <div id="level-3-{{ forloop.parentloop.parentloop.index }}-{{ forloop.parentloop.index }}-{{ forloop.index }}" class="open"> <!-- 三级默认状态 -->
 
                       {% comment %} 第四步：按四级分类分组 {% endcomment %}
                       {% assign fourth_level = third_cat.items | group_by: "categories[3]" %}
@@ -241,55 +241,6 @@ title: Viggo
   </div>
 </div>
 
-<!-- 折叠/展开交互 JS（未修改，确保功能正常） -->
-<script>
-document.querySelectorAll('.level-1').forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    if (targetEl.classList.contains('closed')) {
-      targetEl.classList.replace('closed', 'open');
-      item.innerHTML = item.innerHTML.replace('▶', '▼');
-    } else {
-      targetEl.classList.replace('open', 'closed');
-      item.innerHTML = item.innerHTML.replace('▼', '▶');
-    }
-  });
-});
-
-document.querySelectorAll('.level-2').forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    if (targetEl.classList.contains('closed')) {
-      targetEl.classList.replace('closed', 'open');
-      item.innerHTML = item.innerHTML.replace('▶', '▼');
-    } else {
-      targetEl.classList.replace('open', 'closed');
-      item.innerHTML = item.innerHTML.replace('▼', '▶');
-    }
-  });
-});
-
-document.querySelectorAll('.level-3').forEach(item => {
-  item.addEventListener('click', () => {
-    const targetId = item.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    if (targetEl.classList.contains('closed')) {
-      targetEl.classList.replace('closed', 'open');
-      item.innerHTML = item.innerHTML.replace('▶', '▼');
-    } else {
-      targetEl.classList.replace('open', 'closed');
-      item.innerHTML = item.innerHTML.replace('▼', '▶');
-    }
-  });
-});
-
-document.querySelectorAll('.open').forEach(el => {
-  const trigger = document.querySelector(`[data-target="${el.id}"]`);
-  if (trigger) trigger.innerHTML = trigger.innerHTML.replace('▶', '▼');
-});
-</script>
 
 <!-- 折叠/展开交互 JS -->
 <script>

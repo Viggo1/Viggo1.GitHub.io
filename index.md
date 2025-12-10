@@ -18,8 +18,7 @@ title: Viggo
 
 /* 左侧四级目录栏 */
 .sidebar {
-  width: 28%;
-  min-width: 250px;
+  width: 300px;
   background: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
@@ -29,7 +28,6 @@ title: Viggo
   box-sizing: border-box; /* 关键：padding不撑大宽度 */
   visibility: visible !important; /* 强制可见 */
   opacity: 1 !important; /* 强制不透明 */
-  border: 1px solid #ff0000 !important;
   color: #2c3e50 !important; /* 强制文字颜色（避免和背景一致） */
 }
 

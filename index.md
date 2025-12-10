@@ -29,12 +29,10 @@ title: Viggo
   box-sizing: border-box; /* 关键：padding不撑大宽度 */
   visibility: visible !important; /* 强制可见 */
   opacity: 1 !important; /* 强制不透明 */
+  border: 1px solid #ff0000 !important;
   color: #2c3e50 !important; /* 强制文字颜色（避免和背景一致） */
 }
-#level-1-1, #level-2-1-1, #level-3-1-1-1 {
-  display: block !important;
-  height: auto !important;
-}
+
 
 /* 右侧个人简介区 */
 .profile {
@@ -48,54 +46,50 @@ title: Viggo
   overflow: hidden; /* 防止内容溢出出现白色 */
 }
 
-/* 目录层级样式：四级缩进 + 折叠控制 */
 /* 一级分类 */
 .level-1 {
-  margin: 10px 0;
+  margin: 8px 0;
   font-size: 1.1em;
   font-weight: bold;
   cursor: pointer;
-  color: #2c3e50;
+  color: #2c3e50 !important; /* 强制黑色，避免和背景融合 */
 }
 /* 二级分类 */
 .level-2 {
-  margin: 8px 0 8px 15px;
+  margin: 6px 0 6px 10px; /* 缩进从15px→10px */
   font-size: 1em;
   cursor: pointer;
-  color: #34495e;
+  color: #34495e !important;
 }
 /* 三级分类 */
 .level-3 {
-  margin: 6px 0 6px 30px;
+  margin: 4px 0 4px 20px; /* 缩进从30px→20px */
   font-size: 0.95em;
   cursor: pointer;
-  color: #7f8c8d;
+  color: #7f8c8d !important;
 }
 /* 四级分类 */
 .level-4 {
-  margin: 4px 0 4px 45px;
+  margin: 2px 0 2px 30px; /* 缩进从45px→30px */
   font-size: 0.9em;
-  color: #95a5a6;
+  color: #95a5a6 !important;
 }
-/* 文章列表 */
+/* 文章列表：彻底简化缩进，确保在容器内 */
 .post-list {
-  margin: 4px 0 4px 60px;
-  list-style: none;
-  padding: 0;
+  margin: 2px 0 2px 35px !important; /* 缩进从60px→35px，强制生效 */
+  list-style: disc !important; /* 强制显示列表符号，确认存在 */
+  padding: 0 !important;
   font-size: 0.85em;
+  color: #3498db !important; /* 强制蓝色，醒目 */
 }
 .post-list li {
-  margin: 3px 0;
-  padding-left: 8px;
+  margin: 3px 0 !important;
+  padding-left: 5px !important;
   border-left: 2px solid #ddd;
 }
 .post-list a {
-  color: #3498db;
-  text-decoration: none;
-}
-.post-list a:hover {
-  color: #2980b9;
-  text-decoration: underline;
+  color: #3498db !important; /* 强制蓝色链接 */
+  text-decoration: underline !important; /* 强制下划线，确认是链接 */
 }
 
 /* 折叠/展开控制类：默认折叠（closed）/ 打开（open） */

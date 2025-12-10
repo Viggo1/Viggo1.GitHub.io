@@ -18,8 +18,7 @@ title: Viggo
 
 /* 左侧四级目录栏 */
 .sidebar {
-  width: 28%;
-  min-width: 250px;
+  width: 40%;
   background: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
@@ -31,78 +30,52 @@ title: Viggo
   opacity: 1 !important; /* 强制不透明 */
   color: #2c3e50 !important; /* 强制文字颜色（避免和背景一致） */
 }
-#level-1-1, #level-2-1-1, #level-3-1-1-1 {
-  display: block !important;
-  height: auto !important;
-}
+
 
 /* 右侧个人简介区 */
 .profile {
   flex: 1;
   background: #f0f8fb;
   padding: 30px;
-  min-width: 300px; /* 小屏幕最小宽度，不挤 */
+  width: 60%;
   border-radius: 8px;
   border: 1px solid #eee;
   box-sizing: border-box; /* 核心：避免padding导致宽度超了遮挡 */
   overflow: hidden; /* 防止内容溢出出现白色 */
 }
 
-/* 目录层级样式：四级缩进 + 折叠控制 */
 /* 一级分类 */
-.level-1 {
-  margin: 10px 0;
+#custom-sidebar.level-1 {
+  margin: 8px 0;
   font-size: 1.1em;
   font-weight: bold;
   cursor: pointer;
-  color: #2c3e50;
+  color: #2c3e50 !important; /* 强制黑色，避免和背景融合 */
 }
-/* 二级分类 */
-.level-2 {
-  margin: 8px 0 8px 15px;
-  font-size: 1em;
-  cursor: pointer;
-  color: #34495e;
-}
-/* 三级分类 */
-.level-3 {
-  margin: 6px 0 6px 30px;
-  font-size: 0.95em;
-  cursor: pointer;
-  color: #7f8c8d;
-}
-/* 四级分类 */
-.level-4 {
-  margin: 4px 0 4px 45px;
-  font-size: 0.9em;
-  color: #95a5a6;
-}
-/* 文章列表 */
-.post-list {
-  margin: 4px 0 4px 60px;
-  list-style: none;
-  padding: 0;
+
+/* 文章列表：彻底简化缩进，确保在容器内 */
+#custom-sidebar.post-list {
+  margin: 2px 0 2px 35px !important; /* 缩进从60px→35px，强制生效 */
+  list-style: disc !important; /* 强制显示列表符号，确认存在 */
+  padding: 0 !important;
   font-size: 0.85em;
+  color: #3498db !important; /* 强制蓝色，醒目 */
 }
-.post-list li {
-  margin: 3px 0;
-  padding-left: 8px;
+#custom-sidebar.post-list li {
+  margin: 3px 0 !important;
+  padding-left: 5px !important;
   border-left: 2px solid #ddd;
 }
-.post-list a {
-  color: #3498db;
-  text-decoration: none;
-}
-.post-list a:hover {
-  color: #2980b9;
-  text-decoration: underline;
+#custom-sidebar.post-list a {
+  color: #3498db !important; /* 强制蓝色链接 */
+  text-decoration: underline !important; /* 强制下划线，确认是链接 */
 }
 
 /* 折叠/展开控制类：默认折叠（closed）/ 打开（open） */
-.closed {
+#custom-sidebar.closed {
   display: none;
 }
-.open {
+#custom-sidebar.open {
   display: block;
 }
 
@@ -111,7 +84,7 @@ title: Viggo
   .container {
     flex-direction: column;
   }
-  .sidebar, .profile {
+  .custom-sidebar, .profile {
     width: 100%;
     min-width: unset;
   }
@@ -120,103 +93,30 @@ title: Viggo
 
 <!-- 主体布局：左侧目录 + 右侧简介 -->
 <div class="container">
-  <!-- 左侧：四级可折叠目录 -->
+  <!-- 左侧：目录 -->
   <div class="sidebar">
     <h3 style="margin-top: 0; color: #2c3e50;">📚 文章目录</h3>
-    <!-- 调试代码（可选，验证后可删除） -->
-  <p style="color: red; font-size: 12px;">
-    一级分类数：{{ first_level.size }} | 第一篇文章：{{ site.posts.first.title | default: "无" }}
-  </p>
-    {% comment %} 第一步：按一级分类分组 {% endcomment %}
-    {% assign first_level = site.posts | group_by: "categories[0]" %}
-    {% for first_cat in first_level %}
-      {% if first_cat.name != "" %}
-        <!-- 一级分类 -->
-        <div class="level-1" data-target="level-1-{{ forloop.index }}">
-          ▶ {{ first_cat.name }} （{{ first_cat.items.size }}篇）
-        </div>
-        <div id="level-1-{{ forloop.index }}" class="open"> <!-- 控制一级默认状态：open/closed -->
 
-          {% comment %} 第二步：按二级分类分组 {% endcomment %}
-          {% assign second_level = first_cat.items | group_by: "categories[1]" %}
-          {% for second_cat in second_level %}
-            {% if second_cat.name != "" %}
-              <!-- 二级分类 -->
-              <div class="level-2" data-target="level-2-{{ forloop.parentloop.index }}-{{ forloop.index }}">
-                ▶ {{ second_cat.name }} （{{ second_cat.items.size }}篇）
-              </div>
-              <div id="level-2-{{ forloop.parentloop.index }}-{{ forloop.index }}" class="open"> <!-- 二级默认状态 -->
-
-                {% comment %} 第三步：按三级分类分组 {% endcomment %}
-                {% assign third_level = second_cat.items | group_by: "categories[2]" %}
-                {% for third_cat in third_level %}
-                  {% if third_cat.name != "" %}
-                    <!-- 三级分类 -->
-                    <div class="level-3" data-target="level-3-{{ forloop.parentloop.parentloop.index }}-{{ forloop.parentloop.index }}-{{ forloop.index }}">
-                      ▶ {{ third_cat.name }} （{{ third_cat.items.size }}篇）
-                    </div>
-                    <div id="level-3-{{ forloop.parentloop.parentloop.index }}-{{ forloop.parentloop.index }}-{{ forloop.index }}" class="open"> <!-- 三级默认状态 -->
-
-                      {% comment %} 第四步：按四级分类分组 {% endcomment %}
-                      {% assign fourth_level = third_cat.items | group_by: "categories[3]" %}
-                      {% for fourth_cat in fourth_level %}
-                        {% if fourth_cat.name != "" %}
-                          <!-- 四级分类（无折叠，直接显示） -->
-                          <div class="level-4">
-                            📄 {{ fourth_cat.name }} （{{ fourth_cat.items.size }}篇）
-                          </div>
-                          <!-- 四级分类下的文章列表 -->
-                          <ul class="post-list">
-                            {% for post in fourth_cat.items %}
-                              <li>
-                                <a href="{{ post.url }}">{{ post.title }}</a>
-                                <span style="color: #999; margin-left: 8px;">{{ post.date | date: "%Y-%m-%d" }}</span>
-                              </li>
-                            {% endfor %}
-                          </ul>
-                        {% else %}
-                          <!-- 无四级分类：显示三级下的文章 -->
-                          <ul class="post-list">
-                            {% for post in third_cat.items %}
-                              <li>
-                                <a href="{{ post.url }}">{{ post.title }}</a>
-                                <span style="color: #999; margin-left: 8px;">{{ post.date | date: "%Y-%m-%d" }}</span>
-                              </li>
-                            {% endfor %}
-                          </ul>
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  {% else %}
-                    <!-- 无三级分类：显示二级下的文章 -->
-                    <ul class="post-list">
-                      {% for post in second_cat.items %}
-                        <li>
-                          <a href="{{ post.url }}">{{ post.title }}</a>
-                          <span style="color: #999; margin-left: 8px;">{{ post.date | date: "%Y-%m-%d" }}</span>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            {% else %}
-              <!-- 无二级分类：显示一级下的文章 -->
-              <ul class="post-list">
-                {% for post in first_cat.items %}
-                  <li>
-                    <a href="{{ post.url }}">{{ post.title }}</a>
-                    <span style="color: #999; margin-left: 8px;">{{ post.date | date: "%Y-%m-%d" }}</span>
-                  </li>
-                {% endfor %}
-              </ul>
+  <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
+    <h4 style="color: #000 !important;">按分类</h4>
+    {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
+    {% for cat in all_cats %}
+      {% if cat != "" %}
+        <h4 style="color: #000 !important; margin: 5px 0 !important;">{{ cat }}</h4>
+        <ul style="margin: 0 0 10px 20px !important; padding: 0 !important; color: #000 !important;">
+          {% for post in site.posts %}
+            {% if post.categories contains cat %}
+              <li style="margin: 3px 0 !important;">
+                <a href="{{ post.url }}" style="color: #007bff !important;">{{ post.title }}</a>
+              </li>
             {% endif %}
           {% endfor %}
-        </div>
+        </ul>
       {% endif %}
     {% endfor %}
   </div>
-
+</div>
+   
 <div class="profile">
     <h2 style="color: #2c3e50; margin-top: 0;">👋 关于我</h2>
     <div style="line-height: 1.8; font-size: 1.1em; color: #34495e;">
@@ -268,38 +168,6 @@ function toggleCategory(item) {
   }
 }
 
-
-document.querySelectorAll('.level-1').forEach(item => {
-  item.addEventListener('click', () => toggleCategory(item));
-  // 初始化：默认open的分类，箭头改为▼
-  const targetId = item.getAttribute('data-target');
-  const targetEl = document.getElementById(targetId);
-  if (targetEl && targetEl.classList.contains('open')) {
-    item.innerHTML = item.innerHTML.replace('▶', '▼');
-  }
-});
-
-
-document.querySelectorAll('.level-2').forEach(item => {
-  item.addEventListener('click', () => toggleCategory(item));
-  // 初始化：默认open的分类，箭头改为▼
-  const targetId = item.getAttribute('data-target');
-  const targetEl = document.getElementById(targetId);
-  if (targetEl && targetEl.classList.contains('open')) {
-    item.innerHTML = item.innerHTML.replace('▶', '▼');
-  }
-});
-
-
-document.querySelectorAll('.level-3').forEach(item => {
-  item.addEventListener('click', () => toggleCategory(item));
-  const targetId = item.getAttribute('data-target');
-  const targetEl = document.getElementById(targetId);
-  if (targetEl && targetEl.classList.contains('open')) {
-    item.innerHTML = item.innerHTML.replace('▶', '▼');
-  }
-});
-</script>
 
 <!-- 悬停复制 CSS：悬浮样式 + 提示文案 -->
 <style>

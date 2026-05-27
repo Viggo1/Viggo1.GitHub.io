@@ -91,10 +91,9 @@ title: Viggo
 }
 
 /* Improved sidebar typography and collapsible categories */
-.sidebar { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size: 14px; }
+.sidebar { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size: 14px; flex: 0 0 320px; max-width: 40%; min-width: 220px; }
 .sidebar .section-title { display:inline-block; margin:0; font-size:1.05em; color:#22313F; }
 .categories-header { display:flex; justify-content:space-between; align-items:center; gap:8px; }
-.sidebar-toggle { background:transparent; border:1px solid #e1e4e8; color:#34495e; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85em; }
 .category-block { margin:6px 0; }
 .category-header { display:flex; align-items:center; gap:8px; cursor:pointer; margin:6px 0; font-weight:600; color:#2c3e50; }
 .category-header .caret { display:inline-block; transition: transform 0.18s ease; color:#3498db; }
@@ -104,7 +103,26 @@ title: Viggo
 .category-list li a { color:#0066cc; text-decoration:none; font-weight:500; }
 .category-list li a:hover { text-decoration:underline; }
 
-.sidebar.hidden { display:none; }
+/* Sidebar slide/hidden state (keeps element in flow for accessible toggle) */
+.sidebar { transition: transform 0.28s ease, opacity 0.28s ease; }
+.sidebar.hidden { transform: translateX(-100%); opacity:0; }
+
+/* Container equal-height and responsive tweaks */
+.container { align-items: stretch; max-width: 1100px; }
+.profile { flex: 1 1 0; min-width: 300px; }
+
+/* Global toggle button (always visible) */
+.global-toggle { background: #fff; border:1px solid #e1e4e8; color:#34495e; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.9em; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+@media (max-width: 1024px) {
+  .sidebar { flex: 0 0 280px; max-width: 38%; }
+  .profile { padding: 22px; }
+}
+
+@media (max-width: 768px) {
+  .sidebar { transform:none !important; opacity:1 !important; width:100%; max-width:none; }
+  .global-toggle { display:none; }
+}
 </style>
 
 <!-- 主体布局：左侧目录 + 右侧简介 -->
@@ -116,7 +134,6 @@ title: Viggo
   <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
     <div class="categories-header">
       <h4 class="section-title">按分类</h4>
-      <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">收起</button>
     </div>
     {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
     {% for cat in all_cats %}
@@ -136,6 +153,9 @@ title: Viggo
       {% endif %}
     {% endfor %}
   </div>
+  
+  <!-- 全局侧栏切换按钮（放在侧栏外，保证在收起后仍然可点） -->
+  <button id="global-sidebar-toggle" class="global-toggle" aria-label="Toggle sidebar" style="margin:12px;">收起侧栏</button>
 </div>
    
 <div class="profile">
@@ -362,16 +382,16 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const globalToggle = document.getElementById('global-sidebar-toggle');
   const sidebar = document.querySelector('.sidebar');
-  if(sidebarToggle && sidebar){
-    sidebarToggle.addEventListener('click', () => {
+  if(globalToggle && sidebar){
+    globalToggle.addEventListener('click', () => {
       if(sidebar.classList.contains('hidden')){
         sidebar.classList.remove('hidden');
-        sidebarToggle.textContent = '收起';
+        globalToggle.textContent = '收起侧栏';
       } else {
         sidebar.classList.add('hidden');
-        sidebarToggle.textContent = '展开';
+        globalToggle.textContent = '展开侧栏';
       }
     });
   }

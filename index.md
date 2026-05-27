@@ -122,7 +122,12 @@ title: Viggo
 
 @media (max-width: 768px) {
   .sidebar { transform:none !important; opacity:1 !important; width:100%; max-width:none; display:block; }
-  .global-toggle { display:none; }
+  .global-toggle {
+    top: 10px;
+    left: 10px;
+    padding: 5px 8px;
+    font-size: 0.85em;
+  }
 }
 
 @media (min-width: 769px) {
@@ -133,50 +138,168 @@ title: Viggo
     z-index: 2000;
   }
 }
+
+/* Full-width page override for the outer markdown template */
+.wrapper,
+.page-content,
+.post-content {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* New three-panel dashboard layout */
+.dashboard {
+  display: grid;
+  grid-template-columns: clamp(260px, 24vw, 340px) minmax(320px, 1.15fr) minmax(280px, 0.85fr);
+  gap: clamp(12px, 1.5vw, 20px);
+  width: 100%;
+  align-items: stretch;
+}
+
+.panel {
+  min-width: 0;
+  border: 1px solid rgba(44, 62, 80, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid rgba(44, 62, 80, 0.08);
+}
+
+.panel-body {
+  padding: 16px;
+}
+
+.dashboard .sidebar {
+  flex: none;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  background: linear-gradient(180deg, #fbfcfe 0%, #f4f8fc 100%);
+}
+
+.dashboard .sidebar-body {
+  padding: 16px;
+}
+
+.dashboard .sidebar-body.collapsed {
+  display: none;
+}
+
+.dashboard .directory-toggle {
+  background: #fff;
+  border: 1px solid #d8e0ea;
+  color: #34495e;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.84em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.dashboard .panel-main {
+  background: linear-gradient(180deg, #f7fbff 0%, #eff8fb 100%);
+}
+
+.dashboard .panel-meta {
+  background: linear-gradient(180deg, #fffdf8 0%, #f9fbfd 100%);
+}
+
+.dashboard .panel-main,
+.dashboard .panel-meta {
+  padding: 18px;
+}
+
+.dashboard .profile-copy {
+  line-height: 1.8;
+  font-size: 1.05em;
+  color: #34495e;
+}
+
+@media (max-width: 1200px) {
+  .dashboard {
+    grid-template-columns: clamp(230px, 28vw, 300px) minmax(280px, 1fr) minmax(250px, 0.9fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .panel-meta {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  .panel-meta {
+    grid-column: auto;
+  }
+}
 </style>
 
 <!-- 主体布局：左侧目录 + 右侧简介 -->
-<button id="global-sidebar-toggle" class="global-toggle" aria-label="Toggle sidebar" style="margin:12px;">收起侧栏</button>
-<div class="container">
+<div class="dashboard">
   <!-- 左侧：目录 -->
-  <div class="sidebar">
-    <h3 style="margin-top: 0; color: #2c3e50;">📚 文章目录</h3>
-
-  <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
-    <div class="categories-header">
-      <h4 class="section-title">按分类</h4>
+  <section class="panel sidebar">
+    <div class="panel-head">
+      <h3 style="margin:0; color:#2c3e50;">📚 文章目录</h3>
+      <button id="sidebar-toggle" class="directory-toggle" type="button" aria-expanded="true">收起目录</button>
     </div>
-    {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
-    {% for cat in all_cats %}
-      {% if cat != "" %}
-        <div class="category-block">
-          <h4 class="category-header" data-target="cat-{{ forloop.index }}"><span class="caret">▶</span><span class="cat-name">{{ cat }}</span></h4>
-          <ul id="cat-{{ forloop.index }}" class="category-list open">
-            {% for post in site.posts %}
-              {% if post.categories contains cat %}
-                <li>
-                  <a href="{{ post.url }}">{{ post.title }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
+    <div id="sidebar-body" class="sidebar-body">
+      <div style="margin-top: 4px; border-top: 1px solid #ddd; padding-top: 10px;">
+        <div class="categories-header">
+          <h4 class="section-title">按分类</h4>
         </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-  
-</div>
-   
-<div class="profile">
-    <h2 style="color: #2c3e50; margin-top: 0;">👋 每日三省吾身</h2>
-    <div style="line-height: 1.8; font-size: 1.1em; color: #34495e;">
+        {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
+        {% for cat in all_cats %}
+          {% if cat != "" %}
+            <div class="category-block">
+              <h4 class="category-header" data-target="cat-{{ forloop.index }}"><span class="caret">▶</span><span class="cat-name">{{ cat }}</span></h4>
+              <ul id="cat-{{ forloop.index }}" class="category-list open">
+                {% for post in site.posts %}
+                  {% if post.categories contains cat %}
+                    <li>
+                      <a href="{{ post.url }}">{{ post.title }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- 中间：每日三省 + 刮刮乐 -->
+  <section class="panel panel-main">
+    <div class="panel-head">
+      <h2 style="margin:0; color:#2c3e50;">👋 每日三省吾身</h2>
+    </div>
+    <div class="panel-body profile-copy">
       <p>Stay hungry</p>
       <p>Stay foolish</p>
       <p>Do not multiply entity beyond necessity</p>
 
       <!-- 刮刮乐交互区 -->
       <div class="scratch-container" style="margin:12px 0;">
-        <div class="scratch-card" style="width:260px; height:90px; border-radius:8px; overflow:hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08); position:relative;">
+        <div class="scratch-card" style="width:min(100%, 320px); height:100px; border-radius:12px; overflow:hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position:relative;">
           <div class="scratch-back" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg,#fef9e7,#ecf8ff); font-weight:700; color:#2c3e50; font-size:1.05em;">
             MBTI: <span id="mbti-value" style="margin-left:8px; color:#e74c3c;">INTJ</span>
           </div>
@@ -253,17 +376,24 @@ title: Viggo
       })();
       </script>
 
-      <h3 style="color: #2980b9;">📞 联系方式</h3>
+    </div>
+  </section>
+
+  <!-- 右侧：联系方式 + 博客数据 -->
+  <section class="panel panel-meta">
+    <div class="panel-head">
+      <h2 style="margin:0; color:#2c3e50;">📞 联系方式</h2>
+    </div>
+    <div class="panel-body profile-copy">
       <p>邮箱：<a href="mailto:zhaoyige1@163.com" style="color: #3498db; text-decoration: none;">
       <span class="copyable-text" data-copy="zhaoyige1@163.com">zhaoyige1@163.com</span></a></p>
       <p>微信：<span class="copyable-text" data-copy="_iacgnaixihcub">_iacgnaixihcub</span></p>
       <p>GitHub：<a href="https://github.com/viggo1" target="_blank" style="color: #3498db;">https://github.com/viggo1</a></p>
-      <h3 style="color: #2980b9;">📊 博客数据</h3>
+      <h3 style="color: #2980b9; margin-top: 20px;">📊 博客数据</h3>
       <p>总文章数：<span style="font-weight: bold; color: #e74c3c;">{{ site.posts.size }}</span> 篇</p>
       <p>最后更新：<span style="color: #7f8c8d;">{{ site.posts.first.date | date: "%Y-%m-%d" }}</span></p>
-      
     </div>
-  </div>
+  </section>
 </div>
 
 
@@ -282,6 +412,8 @@ function toggleCategory(item) {
     item.innerHTML = item.innerHTML.replace('▼', '▶');
   }
 }
+
+</script>
 
 
 <!-- 悬停复制 CSS：悬浮样式 + 提示文案 -->
@@ -391,17 +523,13 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  const globalToggle = document.getElementById('global-sidebar-toggle');
-  const sidebar = document.querySelector('.sidebar');
-  if(globalToggle && sidebar){
-    globalToggle.addEventListener('click', () => {
-      if(sidebar.classList.contains('hidden')){
-        sidebar.classList.remove('hidden');
-        globalToggle.textContent = '收起侧栏';
-      } else {
-        sidebar.classList.add('hidden');
-        globalToggle.textContent = '展开侧栏';
-      }
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebarBody = document.getElementById('sidebar-body');
+  if(sidebarToggle && sidebarBody){
+    sidebarToggle.addEventListener('click', () => {
+      const collapsed = sidebarBody.classList.toggle('collapsed');
+      sidebarToggle.textContent = collapsed ? '展开目录' : '收起目录';
+      sidebarToggle.setAttribute('aria-expanded', String(!collapsed));
     });
   }
 });

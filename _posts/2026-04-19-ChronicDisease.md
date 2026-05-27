@@ -267,7 +267,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         
         <h3>2.2 核心AI能力定义</h3>
         <div class="mermaid">
-            <img src="/home/zyg/page/viggo1.github.io/assets/慢病助手-OCR逻辑图.png" alt="患者端AI能力与医生端AI能力图" />
+            <img src="../assets/慢病助手-OCR逻辑图.png" alt="患者端AI能力与医生端AI能力图" />
         </div>
         
         <h3>2.3 AI核心策略设计（工业级细节）</h3>
@@ -286,7 +286,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         
         <h4>🔹 RAG知识库构建策略</h4>
         <div class="mermaid">
-            <img src="/home/zyg/page/viggo1.github.io/assets/慢病助手-1.png" alt="RAG知识库构建策略图" />
+            <img src="../assets/慢病助手-1.png" alt="RAG知识库构建策略图" />
         </div>
         
         <h4>🔹 风险分级与干预策略</h4>

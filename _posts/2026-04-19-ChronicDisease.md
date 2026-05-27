@@ -267,7 +267,9 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         
         <h3>2.2 核心AI能力定义</h3>
         <div class="mermaid">
-            <img src="/assets/chronicdisease-OCR逻辑图.png" alt="患者端AI能力与医生端AI能力图" />
+            <img src="/assets/chronic-assistant-1.png?t=20260528" 
+     alt="RAG知识库构建策略图" 
+     style="opacity: 1 !important; animation: none !important; display: block !important;">
         </div>
         
         <h3>2.3 AI核心策略设计</h3>

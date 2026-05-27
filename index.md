@@ -151,21 +151,24 @@ body {
   overflow-x: hidden;
 }
 
-/* New three-panel dashboard layout */
+/* Two-column dashboard layout */
 .dashboard {
   display: grid;
-  grid-template-columns: clamp(260px, 24vw, 340px) minmax(320px, 1.15fr) minmax(280px, 0.85fr);
+  grid-template-columns: clamp(270px, 28vw, 360px) minmax(0, 1fr);
   gap: clamp(12px, 1.5vw, 20px);
   width: 100%;
   align-items: stretch;
+  min-height: calc(100vh - 56px);
 }
 
 .panel {
   min-width: 0;
+  min-height: calc(100vh - 56px);
   border: 1px solid rgba(44, 62, 80, 0.08);
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
   overflow: hidden;
+  background: #ffffff;
 }
 
 .panel-head {
@@ -186,7 +189,7 @@ body {
   width: auto;
   max-width: none;
   min-width: 0;
-  background: linear-gradient(180deg, #fbfcfe 0%, #f4f8fc 100%);
+  background: #ffffff;
 }
 
 .dashboard .sidebar-body {
@@ -210,15 +213,10 @@ body {
 }
 
 .dashboard .panel-main {
-  background: linear-gradient(180deg, #f7fbff 0%, #eff8fb 100%);
+  background: #ffffff;
 }
 
-.dashboard .panel-meta {
-  background: linear-gradient(180deg, #fffdf8 0%, #f9fbfd 100%);
-}
-
-.dashboard .panel-main,
-.dashboard .panel-meta {
+.dashboard .panel-main {
   padding: 18px;
 }
 
@@ -230,25 +228,19 @@ body {
 
 @media (max-width: 1200px) {
   .dashboard {
-    grid-template-columns: clamp(230px, 28vw, 300px) minmax(280px, 1fr) minmax(250px, 0.9fr);
+    grid-template-columns: clamp(240px, 30vw, 320px) minmax(0, 1fr);
   }
 }
 
 @media (max-width: 980px) {
   .dashboard {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .panel-meta {
-    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr;
-  }
-  .panel-meta {
-    grid-column: auto;
   }
 }
 </style>
@@ -292,7 +284,7 @@ body {
     <div class="panel-head">
       <h2 style="margin:0; color:#2c3e50;">👋 每日三省吾身</h2>
     </div>
-    <div class="panel-body profile-copy">
+    <div class="panel-body profile-copy" style="min-height: calc(100vh - 140px); display:flex; flex-direction:column; justify-content:flex-start;">
       <p>Stay hungry</p>
       <p>Stay foolish</p>
       <p>Do not multiply entity beyond necessity</p>
@@ -376,22 +368,17 @@ body {
       })();
       </script>
 
-    </div>
-  </section>
+      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(44,62,80,0.08);">
+        <h3 style="color: #2980b9; margin-top: 0;">📞 联系方式</h3>
+        <p>邮箱：<a href="mailto:zhaoyige1@163.com" style="color: #3498db; text-decoration: none;">
+        <span class="copyable-text" data-copy="zhaoyige1@163.com">zhaoyige1@163.com</span></a></p>
+        <p>微信：<span class="copyable-text" data-copy="_iacgnaixihcub">_iacgnaixihcub</span></p>
+        <p>GitHub：<a href="https://github.com/viggo1" target="_blank" style="color: #3498db;">https://github.com/viggo1</a></p>
+        <h3 style="color: #2980b9; margin-top: 18px;">📊 博客数据</h3>
+        <p>总文章数：<span style="font-weight: bold; color: #e74c3c;">{{ site.posts.size }}</span> 篇</p>
+        <p>最后更新：<span style="color: #7f8c8d;">{{ site.posts.first.date | date: "%Y-%m-%d" }}</span></p>
+      </div>
 
-  <!-- 右侧：联系方式 + 博客数据 -->
-  <section class="panel panel-meta">
-    <div class="panel-head">
-      <h2 style="margin:0; color:#2c3e50;">📞 联系方式</h2>
-    </div>
-    <div class="panel-body profile-copy">
-      <p>邮箱：<a href="mailto:zhaoyige1@163.com" style="color: #3498db; text-decoration: none;">
-      <span class="copyable-text" data-copy="zhaoyige1@163.com">zhaoyige1@163.com</span></a></p>
-      <p>微信：<span class="copyable-text" data-copy="_iacgnaixihcub">_iacgnaixihcub</span></p>
-      <p>GitHub：<a href="https://github.com/viggo1" target="_blank" style="color: #3498db;">https://github.com/viggo1</a></p>
-      <h3 style="color: #2980b9; margin-top: 20px;">📊 博客数据</h3>
-      <p>总文章数：<span style="font-weight: bold; color: #e74c3c;">{{ site.posts.size }}</span> 篇</p>
-      <p>最后更新：<span style="color: #7f8c8d;">{{ site.posts.first.date | date: "%Y-%m-%d" }}</span></p>
     </div>
   </section>
 </div>

@@ -6,7 +6,7 @@ categories: ["Portfolio"]  # 对应分类
 tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
 # cover: /assets/images/covers/文章封面图.jpg
 ---
-<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -175,9 +175,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     </style>
 </head>
 <body>
-    <h1>HealthGuard AI</h1>
-    <p class="subtitle"> 糖尿病患者全周期管理智能体 | 2026-2027技术栈 | AI产品</p>
-    
+    <h1>糖尿病患者全周期管理智能体</h1>    
     <div class="section">
         <h2>AI产品生命周期总览</h2>
         <div class="mermaid">
@@ -790,52 +788,6 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         </table>
     </div>
     
-    <div class="section">
-        <h2>项目成果与能力展示</h2>
-        
-        <h3>可交付成果清单</h3>
-        <ol>
-            <li>完整AI产品生命周期文档（需求分析、PRD、技术方案、评估报告）</li>
-            <li>可运行的产品Demo（患者端+医生端）</li>
-            <li>模型评估报告与A/B测试结果</li>
-            <li>数据可视化看板（用户增长、功能使用、健康指标）</li>
-            <li>技术博客3篇（AI Agent在医疗领域的应用、RAG医疗知识库构建、慢病管理效果量化）</li>
-        </ol>
-        
-        <h3>能力映射（完美匹配JD要求）</h3>
-        <table>
-            <tr>
-                <th>JD核心职责</th>
-                <th>项目对应能力展示</th>
-                <th>量化成果</th>
-            </tr>
-            <tr>
-                <td>痛点挖掘+创新方案</td>
-                <td>设计主动干预式慢病管理模式</td>
-                <td>用药依从性提升35.5%</td>
-            </tr>
-            <tr>
-                <td>AI产品规划与设计</td>
-                <td>输出工业级AI策略与评估体系</td>
-                <td>模型幻觉率从8%降至2.5%</td>
-            </tr>
-            <tr>
-                <td>跨团队协同</td>
-                <td>协调算法/工程/医疗团队</td>
-                <td>90天完成MVP交付</td>
-            </tr>
-            <tr>
-                <td>模型评估与优化</td>
-                <td>建立三层评估体系+A/B测试</td>
-                <td>血糖达标率提升44.4%</td>
-            </tr>
-            <tr>
-                <td>市场分析+竞品跟踪</td>
-                <td>完成5家竞品分析+差异化定位</td>
-                <td>核心功能领先竞品6个月</td>
-            </tr>
-        </table>
-    </div>
     
     <footer style="text-align: center; margin-top: 50px; padding: 20px; color: #7f8c8d; border-top: 1px solid #eee;">
     </footer>

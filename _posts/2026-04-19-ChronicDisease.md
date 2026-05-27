@@ -6,39 +6,13 @@ categories: ["Portfolio"]  # 对应分类
 tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
 # cover: /assets/images/covers/文章封面图.jpg
 ---
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthGuard Agent</title>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.mermaid) {
-                mermaid.initialize({
-                    startOnLoad: true,
-                    theme: 'base',
-                    securityLevel: 'loose',
-                    flowchart: {
-                        useMaxWidth: true,
-                        htmlLabels: true,
-                        nodeSpacing: 55,
-                        rankSpacing: 75,
-                        curve: 'basis'
-                    },
-                    themeVariables: {
-                        primaryColor: '#eaf3ff',
-                        primaryTextColor: '#1f3b5b',
-                        primaryBorderColor: '#7aa7d9',
-                        lineColor: '#7aa7d9',
-                        secondaryColor: '#f3f8ff',
-                        tertiaryColor: '#ffffff',
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-                    }
-                });
-            }
-        });
-    </script>
     <style>
         * {
             margin: 0;
@@ -125,22 +99,14 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         
         .mermaid {
             margin: 20px 0;
-            display: block;
-            width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            padding: 8px 0;
+            display: flex;
+            justify-content: center;
         }
 
-        .mermaid-mindmap {
-            font-size: 12px;
-        }
-
-        .mermaid svg {
-            display: block;
+        .mermaid img {
             max-width: 100%;
             height: auto;
-            margin: 0 auto;
+            display: block;
         }
         
         .code-block {
@@ -209,8 +175,8 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     </style>
 </head>
 <body>
-    <h1>慢病助手 - HealthGuard Agent</h1>
-    <p class="subtitle">HealthGuard AI - 糖尿病患者全周期管理智能体 | 2026-2027技术栈 | AI产品</p>
+    <h1>HealthGuard AI</h1>
+    <p class="subtitle"> 糖尿病患者全周期管理智能体 | 2026-2027技术栈 | AI产品</p>
     
     <div class="section">
         <h2>AI产品生命周期总览</h2>
@@ -227,8 +193,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     </div>
     
     <div class="section">
-        <h2>1. 需求与市场分析阶段</h2>
-        
+        <h2>1. 需求与市场分析阶段</h2>        
         <h3>1.1 用户研究与痛点量化</h3>
         <table>
             <tr>
@@ -298,41 +263,18 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     </div>
     
     <div class="section">
-        <h2>2. 产品定义与AI策略设计阶段</h2>
-
+        <h2>2. 产品定义与AI策略设计阶段</h2>        
         <h3>2.1 产品核心定位</h3>
         <p>用自主AI Agent实现从"被动咨询"到"主动干预"的慢病管理革命，打造医生的"数字助手"和患者的"私人健康管家"</p>
         
         <h3>2.2 核心AI能力定义</h3>
         <div class="mermaid">
-        graph TD
-        subgraph 患者端AI能力
-        A[用药依从性智能体] --> A1[个性化提醒]
-        A --> A2[漏服干预]
-        A --> A3[用药记录分析]
-        B[多模态数据助手] --> B1[血糖/血压自动采集]
-        B --> B2[体检报告智能解读]
-        B --> B3[趋势分析与异常标注]
-        C[风险预警引擎] --> C1[实时指标监测]
-        C --> C2[风险分级评估]
-        C --> C3[紧急情况自动报警]
-        D[RAG医疗问答] --> D1[临床指南检索]
-        D --> D2[个性化健康建议]
-        D --> D3[合规回答生成]
-        end
-        subgraph 医生端AI能力
-        E[患者管理智能体] --> E1[高风险患者智能排序]
-        E --> E2[批量随访任务生成]
-        E --> E3[干预效果量化评估]
-        F[智能诊疗助手] --> F1[病历自动摘要]
-        F --> F2[治疗方案推荐]
-        F --> F3[临床决策支持]
-        end
+            <img src="/home/zyg/page/viggo1.github.io/assets/慢病助手-OCR逻辑图.png" alt="患者端AI能力与医生端AI能力图" />
         </div>
         
-        <h3>2.3 AI核心策略设计</h3>
+        <h3>2.3 AI核心策略设计（工业级细节）</h3>
         
-        <h4>🔹 Prompt工程策略</h4>
+        <h4>🔹 Prompt工程策略（医疗领域专用）</h4>
         <div class="code-block">
 系统提示词：
 你是一名专业的内分泌科医生助手，基于最新的《中国2型糖尿病防治指南(2026年版)》回答问题。
@@ -345,29 +287,8 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         </div>
         
         <h4>🔹 RAG知识库构建策略</h4>
-                <div class="mermaid mermaid-mindmap">
-                mindmap
-                    root((RAG知识库构建策略))
-                        知识源
-                            临床指南
-                            医学教材
-                            权威期刊
-                            脱敏病历
-                        数据清洗
-                            格式转换
-                            去重
-                            事实校验
-                        分块与嵌入
-                            语义分块
-                            向量生成
-                            元数据标注
-                        向量数据库
-                            Pinecone
-                            索引构建
-                        检索策略
-                            混合检索
-                            重排序
-                            上下文窗口优化
+        <div class="mermaid">
+            <img src="/home/zyg/page/viggo1.github.io/assets/慢病助手-1.png" alt="RAG知识库构建策略图" />
         </div>
         
         <h4>🔹 风险分级与干预策略</h4>
@@ -423,7 +344,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     <div class="section">
         <h2>3. 技术架构与数据准备阶段</h2>
         
-        <h3>3.1 系统架构</h3>
+        <h3>3.1 工业级系统架构</h3>
         <div class="mermaid">
         graph TD
         subgraph 前端层
@@ -539,9 +460,8 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     </div>
     
     <div class="section">
-        <h2>4. 模型训练与效果评估阶段</h2>
-
-        <h3>4.1 三层评估体系</h3>
+        <h2>4. 模型训练与效果评估阶段</h2>        
+        <h3>4.1 三层评估体系（工业级标准）</h3>
         
         <h4>🔹 技术指标层（模型性能）</h4>
         <table>
@@ -870,7 +790,51 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         </table>
     </div>
     
-      
+    <div class="section">
+        <h2>项目成果与能力展示</h2>
+        
+        <h3>可交付成果清单</h3>
+        <ol>
+            <li>完整AI产品生命周期文档（需求分析、PRD、技术方案、评估报告）</li>
+            <li>可运行的产品Demo（患者端+医生端）</li>
+            <li>模型评估报告与A/B测试结果</li>
+            <li>数据可视化看板（用户增长、功能使用、健康指标）</li>
+            <li>技术博客3篇（AI Agent在医疗领域的应用、RAG医疗知识库构建、慢病管理效果量化）</li>
+        </ol>
+        
+        <h3>能力映射（完美匹配JD要求）</h3>
+        <table>
+            <tr>
+                <th>JD核心职责</th>
+                <th>项目对应能力展示</th>
+                <th>量化成果</th>
+            </tr>
+            <tr>
+                <td>痛点挖掘+创新方案</td>
+                <td>设计主动干预式慢病管理模式</td>
+                <td>用药依从性提升35.5%</td>
+            </tr>
+            <tr>
+                <td>AI产品规划与设计</td>
+                <td>输出工业级AI策略与评估体系</td>
+                <td>模型幻觉率从8%降至2.5%</td>
+            </tr>
+            <tr>
+                <td>跨团队协同</td>
+                <td>协调算法/工程/医疗团队</td>
+                <td>90天完成MVP交付</td>
+            </tr>
+            <tr>
+                <td>模型评估与优化</td>
+                <td>建立三层评估体系+A/B测试</td>
+                <td>血糖达标率提升44.4%</td>
+            </tr>
+            <tr>
+                <td>市场分析+竞品跟踪</td>
+                <td>完成5家竞品分析+差异化定位</td>
+                <td>核心功能领先竞品6个月</td>
+            </tr>
+        </table>
     </div>
     
     <footer style="text-align: center; margin-top: 50px; padding: 20px; color: #7f8c8d; border-top: 1px solid #eee;">

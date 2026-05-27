@@ -220,7 +220,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
             </tr>
         </table>
         
-        <h3>1.2 竞品分析（差异化定位）</h3>
+        <h3>1.2 竞品分析</h3>
         <table>
             <tr>
                 <th>竞品</th>
@@ -267,12 +267,12 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         
         <h3>2.2 核心AI能力定义</h3>
         <div class="mermaid">
-            <img src="/assets/慢病助手-OCR逻辑图.png" alt="患者端AI能力与医生端AI能力图" />
+            <img src="/assets/chronicdisease-OCR逻辑图.png" alt="患者端AI能力与医生端AI能力图" />
         </div>
         
-        <h3>2.3 AI核心策略设计（工业级细节）</h3>
+        <h3>2.3 AI核心策略设计</h3>
         
-        <h4>🔹 Prompt工程策略（医疗领域专用）</h4>
+        <h4>🔹 Prompt工程策略</h4>
         <div class="code-block">
 系统提示词：
 你是一名专业的内分泌科医生助手，基于最新的《中国2型糖尿病防治指南(2026年版)》回答问题。
@@ -286,7 +286,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         
         <h4>🔹 RAG知识库构建策略</h4>
         <div class="mermaid">
-            <img src="/assets/慢病助手-1.png" alt="RAG知识库构建策略图" />
+            <img src="/assets/chronicdisease-1.png" alt="RAG知识库构建策略图" />
         </div>
         
         <h4>🔹 风险分级与干预策略</h4>
@@ -323,7 +323,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
             </tr>
         </table>
         
-        <h4>🔹 异常兜底流程（AI产品必备）</h4>
+        <h4>🔹 异常兜底流程</h4>
         <div class="mermaid">
         graph LR
         A[用户请求] --> B[AI处理]
@@ -459,9 +459,9 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
     
     <div class="section">
         <h2>4. 模型训练与效果评估阶段</h2>        
-        <h3>4.1 三层评估体系（工业级标准）</h3>
+        <h3>4.1 三层评估体系</h3>
         
-        <h4>🔹 技术指标层（模型性能）</h4>
+        <h4>🔹 技术指标层</h4>
         <table>
             <tr>
                 <th>指标</th>

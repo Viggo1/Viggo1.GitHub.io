@@ -89,6 +89,22 @@ title: Viggo
     min-width: unset;
   }
 }
+
+/* Improved sidebar typography and collapsible categories */
+.sidebar { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size: 14px; }
+.sidebar .section-title { display:inline-block; margin:0; font-size:1.05em; color:#22313F; }
+.categories-header { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.sidebar-toggle { background:transparent; border:1px solid #e1e4e8; color:#34495e; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85em; }
+.category-block { margin:6px 0; }
+.category-header { display:flex; align-items:center; gap:8px; cursor:pointer; margin:6px 0; font-weight:600; color:#2c3e50; }
+.category-header .caret { display:inline-block; transition: transform 0.18s ease; color:#3498db; }
+.category-list { margin: 0 0 10px 16px; padding: 0; list-style: none; overflow: hidden; max-height: 1000px; transition: max-height 0.28s ease; }
+.category-list.closed { max-height: 0 !important; }
+.category-list li { margin: 4px 0; padding-left: 6px; border-left: 2px solid transparent; }
+.category-list li a { color:#0066cc; text-decoration:none; font-weight:500; }
+.category-list li a:hover { text-decoration:underline; }
+
+.sidebar.hidden { display:none; }
 </style>
 
 <!-- 主体布局：左侧目录 + 右侧简介 -->
@@ -98,20 +114,25 @@ title: Viggo
     <h3 style="margin-top: 0; color: #2c3e50;">📚 文章目录</h3>
 
   <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
-    <h4 style="color: #000 !important;">按分类</h4>
+    <div class="categories-header">
+      <h4 class="section-title">按分类</h4>
+      <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">收起</button>
+    </div>
     {% assign all_cats = site.posts | map: 'categories' | flatten | uniq %}
     {% for cat in all_cats %}
       {% if cat != "" %}
-        <h4 style="color: #000 !important; margin: 5px 0 !important;">{{ cat }}</h4>
-        <ul style="margin: 0 0 10px 20px !important; padding: 0 !important; color: #000 !important;">
-          {% for post in site.posts %}
-            {% if post.categories contains cat %}
-              <li style="margin: 3px 0 !important;">
-                <a href="{{ post.url }}" style="color: #007bff !important;">{{ post.title }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
+        <div class="category-block">
+          <h4 class="category-header" data-target="cat-{{ forloop.index }}"><span class="caret">▶</span><span class="cat-name">{{ cat }}</span></h4>
+          <ul id="cat-{{ forloop.index }}" class="category-list open">
+            {% for post in site.posts %}
+              {% if post.categories contains cat %}
+                <li>
+                  <a href="{{ post.url }}">{{ post.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
       {% endif %}
     {% endfor %}
   </div>
@@ -318,5 +339,41 @@ copyElements.forEach(el => {
       setTimeout(() => el.classList.remove('copied'), 2000);
     });
   });
+});
+</script>
+
+<!-- Sidebar collapse/expand behavior for categories -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const headers = document.querySelectorAll('.category-header');
+  headers.forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.getAttribute('data-target');
+      const list = document.getElementById(id);
+      if(!list) return;
+      const caret = h.querySelector('.caret');
+      if(list.classList.contains('closed')){
+        list.classList.remove('closed');
+        caret.style.transform = 'rotate(0deg)';
+      } else {
+        list.classList.add('closed');
+        caret.style.transform = 'rotate(90deg)';
+      }
+    });
+  });
+
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if(sidebarToggle && sidebar){
+    sidebarToggle.addEventListener('click', () => {
+      if(sidebar.classList.contains('hidden')){
+        sidebar.classList.remove('hidden');
+        sidebarToggle.textContent = '收起';
+      } else {
+        sidebar.classList.add('hidden');
+        sidebarToggle.textContent = '展开';
+      }
+    });
+  }
 });
 </script>

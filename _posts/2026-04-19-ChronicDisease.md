@@ -108,6 +108,18 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
             height: auto;
             display: block;
         }
+
+        .figure-image {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .figure-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
         
         .code-block {
             background-color: #f8f9fa;
@@ -266,10 +278,9 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         <p>用自主AI Agent实现从"被动咨询"到"主动干预"的慢病管理革命，打造医生的"数字助手"和患者的"私人健康管家"</p>
         
         <h3>2.2 核心AI能力定义</h3>
-        <div class="mermaid">
+        <div class="figure-image">
             <img src="/assets/chronic-assistant-1.png?t=20260528" 
-     alt="RAG知识库构建策略图" 
-     style="opacity: 1 !important; animation: none !important; display: block !important;">
+     alt="患者端AI能力与医生端AI能力图">
         </div>
         
         <h3>2.3 AI核心策略设计</h3>
@@ -287,7 +298,7 @@ tags: ["PM","Portfolio"]  # 细化主题，方便搜索（3-5个）
         </div>
         
         <h4>🔹 RAG知识库构建策略</h4>
-        <div class="mermaid">
+        <div class="figure-image">
             <img src="/assets/chronicdisease-1.png" alt="RAG知识库构建策略图" />
         </div>
         

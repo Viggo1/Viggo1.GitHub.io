@@ -118,25 +118,90 @@ title: Viggo
 </div>
    
 <div class="profile">
-    <h2 style="color: #2c3e50; margin-top: 0;">👋 关于我</h2>
+    <h2 style="color: #2c3e50; margin-top: 0;">👋 每日三省吾身</h2>
     <div style="line-height: 1.8; font-size: 1.1em; color: #34495e;">
-      <p>你好，我是赵一格，一只野生医学计算机混血研究生</p>
-      <p>标签：#ENTJ </p>
-      <p>      #学习=吃饭 </p> 
-      <p>      #效率=生命 </p>
-      
-      <h3 style="color: #2980b9;">🎓 教育背景</h3>
-      <ul style="line-height: 1.8;">
-        <li>研究生：2024.09-2027.07 西安交通大学 电子信息系 生物医学工程（研二）</li>
-        <li>本科：2020.09-2024.06 暨南大学 计算机系 软件工程（绩点前10%，曾获奖学金）</li>
-      </ul>
+      <p>Stay hungry</p>
+      <p>Stay foolish</p>
+      <p>Do not multiply entity beyond necessity</p>
 
-      <h3 style="color: #2980b9;">💻 核心技能</h3>
-      <ul style="line-height: 1.8;">
-        <li>技术能力：熟悉PyTorch框架、多模态数据建模、语言模型微调</li>
-        <li>工具掌握：Office、Axure、Figma、Dify、Linux、Docker；常用Markdown、偏爱Claude</li>
-        <li>软技能：跨域协作、项目落地、MECE问题拆解、用户需求分析、英文技术文档读写（CET-6 530+）</li>
-      </ul>
+      <!-- 刮刮乐交互区 -->
+      <div class="scratch-container" style="margin:12px 0;">
+        <div class="scratch-card" style="width:260px; height:90px; border-radius:8px; overflow:hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08); position:relative;">
+          <div class="scratch-back" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg,#fef9e7,#ecf8ff); font-weight:700; color:#2c3e50; font-size:1.05em;">
+            MBTI: <span id="mbti-value" style="margin-left:8px; color:#e74c3c;">INTJ</span>
+          </div>
+          <canvas id="scratch-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div style="font-size:0.85em; color:#7f8c8d; margin-top:6px;">刮开涂层查看我的MBTI（鼠标/手指拖动）</div>
+      </div>
+
+      <script>
+      (function(){
+        const canvas = document.getElementById('scratch-canvas');
+        if(!canvas) return;
+        const card = canvas.parentElement;
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+
+        function setup(){
+          const w = card.clientWidth;
+          const h = card.clientHeight;
+          canvas.width = Math.max(1, Math.floor(w * dpr));
+          canvas.height = Math.max(1, Math.floor(h * dpr));
+          canvas.style.width = w + 'px';
+          canvas.style.height = h + 'px';
+          ctx.setTransform(dpr,0,0,dpr,0,0);
+          ctx.clearRect(0,0,w,h);
+          ctx.fillStyle = '#bdbdbd';
+          ctx.fillRect(0,0,w,h);
+          ctx.fillStyle = '#8c8c8c';
+          ctx.font = '14px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('刮开这里', w/2, h/2 + 6);
+        }
+
+        let isDrawing = false;
+
+        function getPointerPos(e){
+          const rect = canvas.getBoundingClientRect();
+          return { x: (e.clientX - rect.left), y: (e.clientY - rect.top) };
+        }
+
+        function scratchAt(x,y){
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 18, 0, Math.PI*2);
+          ctx.fill();
+        }
+
+        function pointerDown(e){
+          isDrawing = true;
+          canvas.setPointerCapture(e.pointerId);
+          const p = getPointerPos(e);
+          scratchAt(p.x, p.y);
+        }
+        function pointerMove(e){ if(!isDrawing) return; const p = getPointerPos(e); scratchAt(p.x, p.y); }
+        function pointerUp(e){ isDrawing = false; try { canvas.releasePointerCapture(e.pointerId); } catch(_){} checkClear(); }
+
+        function checkClear(){
+          try{
+            const img = ctx.getImageData(0,0,canvas.width,canvas.height);
+            let trans = 0;
+            for(let i = 3; i < img.data.length; i += 4){ if(img.data[i] === 0) trans++; }
+            const total = img.data.length / 4;
+            if(trans / total > 0.45){ ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.pointerEvents = 'none'; }
+          }catch(e){/* security or read error: ignore */}
+        }
+
+        // events
+        canvas.addEventListener('pointerdown', pointerDown);
+        canvas.addEventListener('pointermove', pointerMove);
+        window.addEventListener('pointerup', pointerUp);
+
+        window.addEventListener('resize', setup);
+        setup();
+      })();
+      </script>
 
       <h3 style="color: #2980b9;">📞 联系方式</h3>
       <p>邮箱：<a href="mailto:zhaoyige1@163.com" style="color: #3498db; text-decoration: none;">
@@ -146,7 +211,7 @@ title: Viggo
       <h3 style="color: #2980b9;">📊 博客数据</h3>
       <p>总文章数：<span style="font-weight: bold; color: #e74c3c;">{{ site.posts.size }}</span> 篇</p>
       <p>最后更新：<span style="color: #7f8c8d;">{{ site.posts.first.date | date: "%Y-%m-%d" }}</span></p>
-      <p>个人信条：Stay hungry, Stay foolish —— 永远对未知保持好奇，用技术创造价值</p>
+      
     </div>
   </div>
 </div>
